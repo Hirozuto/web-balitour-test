@@ -1,65 +1,34 @@
-$(function () {
+<script>
+  document.getElementById("contactForm").onsubmit = function (event) {
+    event.preventDefault();
 
-    $("#contactForm input, #contactForm textarea").jqBootstrapValidation({
-        preventSubmit: true,
-        submitError: function ($form, event, errors) {
-        },
-        submitSuccess: function ($form, event) {
-            event.preventDefault();
-            var name = $("input#name").val();
-            var email = $("input#email").val();
-            var subject = $("input#subject").val();
-            var message = $("textarea#message").val();
+    // Get form data
+    const formData = new FormData(event.target);
+    const fullName = formData.get("name");
+    const email = formData.get("email");
+    const subject = formData.get("subject");
+    const message = formData.get("message");
 
-            $this = $("#sendMessageButton");
-            $this.prop("disabled", true);
+    // Prepare the WhatsApp message
+    const whatsappMessage = `Name: ${fullName}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`;
 
-            $.ajax({
-                url: "contact.php",
-                type: "POST",
-                data: {
-                    name: name,
-                    email: email,
-                    subject: subject,
-                    message: message
-                },
-                cache: false,
-                success: function () {
-                    $('#success').html("<div class='alert alert-success'>");
-                    $('#success > .alert-success').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                            .append("</button>");
-                    $('#success > .alert-success')
-                            .append("<strong>Your message has been sent. </strong>");
-                    $('#success > .alert-success')
-                            .append('</div>');
-                    $('#contactForm').trigger("reset");
-                },
-                error: function () {
-                    $('#success').html("<div class='alert alert-danger'>");
-                    $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
-                            .append("</button>");
-                    $('#success > .alert-danger').append($("<strong>").text("Sorry " + name + ", it seems that our mail server is not responding. Please try again later!"));
-                    $('#success > .alert-danger').append('</div>');
-                    $('#contactForm').trigger("reset");
-                },
-                complete: function () {
-                    setTimeout(function () {
-                        $this.prop("disabled", false);
-                    }, 1000);
-                }
-            });
-        },
-        filter: function () {
-            return $(this).is(":visible");
-        },
-    });
+    // Replace the following WhatsApp number with your desired recipient's number
+    const recipientNumber = "YOUR_RECIPIENT_PHONE_NUMBER";
 
-    $("a[data-toggle=\"tab\"]").click(function (e) {
-        e.preventDefault();
-        $(this).tab("show");
-    });
-});
+    // Create the WhatsApp URL
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=${recipientNumber}&text=${encodeURIComponent(whatsappMessage)}`;
 
-$('#name').focus(function () {
-    $('#success').html('');
-});
+    // Open WhatsApp in a new tab to send the message
+    window.open(whatsappUrl, "_blank");
+
+    // Optionally, you can show a success message after sending the message
+    const successDiv = document.getElementById("success");
+    successDiv.innerHTML = "<p class='text-success'>Message sent successfully!</p>";
+
+    // Optionally, you can clear the form fields after sending the message
+    document.getElementById("name").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("subject").value = "";
+    document.getElementById("message").value = "";
+  };
+</script>
