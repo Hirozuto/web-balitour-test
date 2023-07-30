@@ -13,7 +13,7 @@
     const whatsappMessage = `Name: ${fullName}\nEmail: ${email}\nSubject: ${subject}\nMessage: ${message}`;
 
     // Replace the following WhatsApp number with your desired recipient's number
-    const recipientNumber = "YOUR_RECIPIENT_PHONE_NUMBER";
+    const recipientNumber = "6285158203299";
 
     // Create the WhatsApp URL
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=${recipientNumber}&text=${encodeURIComponent(whatsappMessage)}`;
