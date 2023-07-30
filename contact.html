@@ -25,33 +25,44 @@
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
     <style>
-        /* Add your preferred styling here */
         body {
           font-family: Arial, sans-serif;
+          background-color: #f8f9fa;
+        }
+    
+        .container-fluid {
+          padding: 50px 0;
         }
     
         .contact-form {
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
           padding: 30px;
         }
     
         .form-input {
           display: block;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
           width: 100%;
-          padding: 8px;
+          padding: 10px;
           font-size: 16px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
         }
     
         .form-input textarea {
-          height: 150px;
+          resize: vertical;
+          min-height: 150px;
         }
     
         .form-submit {
           background-color: #4CAF50;
           color: white;
           border: none;
-          padding: 10px 20px;
+          padding: 12px 24px;
           font-size: 16px;
+          border-radius: 5px;
           cursor: pointer;
         }
       </style>
@@ -135,37 +146,26 @@
     <!-- Header End -->
 
   <!-- Contact Start -->
-  <div class="container-fluid py-5">
-    <div class="container py-5">
-      <div class="text-center mb-3 pb-3">
-        <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Contact</h6>
-        <h1>Contact For Any Query</h1>
-      </div>
+  <div class="container-fluid">
+    <div class="container">
       <div class="row justify-content-center">
         <div class="col-lg-8">
-          <div class="contact-form bg-white">
+          <div class="contact-form">
             <form id="contactForm">
-              <div class="form-row">
-                <div class="control-group col-sm-6">
-                  <input type="text" class="form-control p-4" id="name" placeholder="Your Name"
-                    required="required" data-validation-required-message="Please enter your name" />
-                </div>
-                <div class="control-group col-sm-6">
-                  <input type="email" class="form-control p-4" id="email" placeholder="Your Email"
-                    required="required" data-validation-required-message="Please enter your email" />
-                </div>
+              <div class="form-group">
+                <input type="text" class="form-input" id="name" placeholder="Your Name" required>
               </div>
-              <div class="control-group">
-                <input type="text" class="form-control p-4" id="subject" placeholder="Subject"
-                  required="required" data-validation-required-message="Please enter a subject" />
+              <div class="form-group">
+                <input type="email" class="form-input" id="email" placeholder="Your Email" required>
               </div>
-              <div class="control-group">
-                <textarea class="form-control py-3 px-4" rows="5" id="message" placeholder="Message"
-                  required="required"
-                  data-validation-required-message="Please enter your message"></textarea>
+              <div class="form-group">
+                <input type="text" class="form-input" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group">
+                <textarea class="form-input" rows="5" id="message" placeholder="Message" required></textarea>
               </div>
               <div class="text-center">
-                <button class="btn btn-primary py-3 px-4" type="submit" id="sendMessageButton">Send Message</button>
+                <button class="form-submit" type="submit" id="sendMessageButton">Send Message</button>
               </div>
             </form>
           </div>
@@ -252,13 +252,8 @@
           const email = encodeURIComponent(document.getElementById('email').value);
           const subject = encodeURIComponent(document.getElementById('subject').value);
           const message = encodeURIComponent(document.getElementById('message').value);
-    
           const whatsappMessage = `Name: ${name}%0AEmail: ${email}%0ASubject: ${subject}%0AMessage: ${message}`;
-    
-          // Replace 'your_whatsapp_number' with your actual WhatsApp number
           const whatsappLink = `https://wa.me/6285158203299?text=${whatsappMessage}`;
-    
-          // Open WhatsApp in a new tab
           window.open(whatsappLink, '_blank');
         }
       </script>
